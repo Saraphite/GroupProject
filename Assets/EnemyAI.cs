@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour {
 	public float speed = 2;
 	private PlayerStats playerStats;
 	public GameObject player;
+	public int enemyValue = 10; //Currency given to the player on death. 
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,7 @@ public class EnemyAI : MonoBehaviour {
 		transform.position = Vector3.MoveTowards (transform.position, target, speed * Time.deltaTime);
 		//rigidbody.AddForce ((target - transform.position) * speed * Time.deltaTime);
 		if(health <= 0){
+			playerStats.currency += enemyValue;
 			Death();
 		}
 		if(transform.position == target && waypointIndex != 8){

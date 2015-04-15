@@ -6,7 +6,10 @@ public class PlayerStats : MonoBehaviour {
 	public int playerHealth = 100;
 	public int damageTaken = 0;
 	public int triggerThreshold = 10;
-	public bool limiter = false; // makes sure the virus events don't fire for as long as the player remains at a multiple of 10hp.
+	private bool limiter = false; // makes sure the virus events don't fire for as long as the player remains at a multiple of 10hp.
+
+	public int currency = 70; //currency
+
 	// Use this for initialization
 	void Start () {
 	
