@@ -24,13 +24,17 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){ 
 		if(timer < Time.time){ //Spawn enemy
-			GameObject spawnedEnemy = (GameObject)Instantiate(enemies[Random.Range(0, enemyLevel)], transform.position, transform.rotation);
+			int randomIndex = Random.Range(0, (enemyLevel + 1));
+			Debug.Log (enemyLevel);
+			Debug.Log(randomIndex);
+			GameObject spawnedEnemy = (GameObject)Instantiate(enemies[randomIndex], transform.position, transform.rotation);
 			spawnedEnemy.SetActive (true);
 			manager.activeEnemies.Add(spawnedEnemy);
 			spawnCounter++;
 			overallSpawnCount++;
-			if(spawnCounter == levelThreshold){
-			//enemyLevel++;
+			if(spawnCounter == levelThreshold && enemyLevel < enemies.Length){
+				spawnCounter = 0;
+				enemyLevel++;
 				Debug.Log ("Enemy leveled up");
 			}
 			timer = Time.time + CalculateSpawnDelay();

@@ -9,7 +9,7 @@ public class ArcherTowerBehaviour : MonoBehaviour {
 
 	public float attackSpeed = 1.5f;
 	public int attackDamage = 1;
-	public float attackRange = 20.0f;
+	public float attackRange = 1.0f;
 	public GameObject target;
 	public EnemyAI enemyTarget;
 	public float distanceToTarget;
@@ -18,7 +18,7 @@ public class ArcherTowerBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start()  {
-		Debug.Log ("Ping");
+		//Debug.Log ("Ping");
 		manager = director.GetComponent<WorldManager>();
 		lastShot = Time.time;
 	}
@@ -32,7 +32,7 @@ public class ArcherTowerBehaviour : MonoBehaviour {
 		else{
 			distanceToTarget = Vector3.Distance (target.transform.position, this.gameObject.transform.position);
 			if(Time.time > attackSpeed + lastShot && distanceToTarget < attackRange){
-				Debug.Log ("(Fired)");
+				//Debug.Log ("(Fired)");
 				GameObject tempProjectile = Instantiate (projectile, this.gameObject.transform.position, this.gameObject.transform.rotation) as GameObject;
 				ProjectileBehaviour pb = tempProjectile.GetComponent<ProjectileBehaviour>();
 				pb.speed = projectileSpeed;
@@ -48,7 +48,7 @@ public class ArcherTowerBehaviour : MonoBehaviour {
 	}
 
 	GameObject FindTarget(){
-		Debug.Log ("Finding target");
+		//Debug.Log ("Finding target");
 		GameObject closestTarget = null;
 		float bestDist = Mathf.Infinity;
 		foreach(GameObject enemy in manager.activeEnemies){
@@ -63,10 +63,6 @@ public class ArcherTowerBehaviour : MonoBehaviour {
 
 		if(closestTarget != null){
 			enemyTarget = closestTarget.GetComponent<EnemyAI>();
-			Debug.Log ("Found target");
-		}
-		else{
-			Debug.Log ("Found not target");
 		}
 		return closestTarget;
 	}

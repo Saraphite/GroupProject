@@ -14,7 +14,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Debug.Log ("Spawned projhectile");
+		//Debug.Log ("Spawned projhectile");
 		targetStats = target.GetComponent<EnemyAI>();
 		//projectileRigid = this.gameObject.GetComponent<Rigidbody2D>();
 	}
