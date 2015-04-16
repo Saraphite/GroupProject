@@ -8,7 +8,6 @@ public class EnemyAI : MonoBehaviour {
 	public GameObject[] waypoints;
 	public int waypointIndex;
 	public Vector3 target;
-	public Rigidbody2D rigidbody;
 	public int health = 3;
 	public int attackPower = 1;
 	public float speed = 2;
@@ -21,7 +20,6 @@ public class EnemyAI : MonoBehaviour {
 		manager = director.GetComponent<WorldManager>();
 		waypointIndex = 1;
 		target = waypoints[waypointIndex].transform.position;
-		rigidbody = this.GetComponent<Rigidbody2D>();
 		playerStats = player.GetComponent<PlayerStats>();
 	}
 	

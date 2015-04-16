@@ -36,12 +36,25 @@ public class SpawnDefenceButtonBehaviour : MonoBehaviour {
 			else{
 				unitInHand.gameObject.GetComponent<SpriteRenderer>().enabled = true;
 			}
+			if(Input.GetMouseButtonDown(0) && canPlace){
+				GameObject newDef = Instantiate (unitInHand, GetPlacementProjection (), transform.rotation) as GameObject;
+				newDef.GetComponent<BoxCollider>().enabled = true;
+				newDef.GetComponent<ArcherTowerBehaviour>().enabled = true;
+				newDef.layer = 8;
+				playerStats.currency -= cost;
+				Destroy(unitInHand);
+				unitInHand = null;
+				Debug.Log ("Spawned");
+			}	
 		}
 	}
 
 	public void OnClicked(){
 		Debug.Log ("Button Pressed");
 		unitInHand = Instantiate (defenceUnit, GetPlacementProjection(), transform.rotation) as GameObject;
+		unitInHand.GetComponent<BoxCollider>().enabled = false;
+		unitInHand.layer = 0;
+		unitInHand.SetActive(true);
 	}
 
 	Vector3 GetPlacementProjection(){
@@ -49,13 +62,14 @@ public class SpawnDefenceButtonBehaviour : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast (ray, out hit)){ //while it doesn't seem clean to do this check here, it means that there only has to be one raycast.
 			if(unitInHand != null){
-			if(hit.transform.gameObject.tag == "SpawnArea"){
+				//Debug.Log (hit.transform.gameObject.name);
+				if(hit.transform.gameObject.tag != "SpawnArea" || hit.transform.gameObject.layer == 8){
+					unitInHand.GetComponent<SpriteRenderer>().color = unableColor;
+					canPlace = false;
+				}
+			else{
 				unitInHand.GetComponent<SpriteRenderer>().color = Color.white;
 				canPlace = true;
-			}
-			else{
-				unitInHand.GetComponent<SpriteRenderer>().color = unableColor;
-				canPlace = false;
 			}
 			}
 			Vector3 pos2d = new Vector3(hit.point.x, hit.point.y, -0.5f);
